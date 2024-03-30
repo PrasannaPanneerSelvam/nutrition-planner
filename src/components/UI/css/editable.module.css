@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+}
+
+.hide {
+  display: none;
+}
+
+.container input {
+  width: 7ch;
+  text-align: right;
+}
+
+.square {
+  display: inline-block;
+  height: 15px;
+  width: 15px;
+  border: 1px solid #000;
+}
+
+.close {
+  border: 1px solid #f00;
+}
