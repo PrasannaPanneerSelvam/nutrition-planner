@@ -22,8 +22,7 @@ function App() {
 
 
   return (
-    <div className="App">
-
+    <>
       <Table
         cellData={[
           ['Energy (kcal)', computeTotalByKey('energy_kcal')],
@@ -49,7 +48,7 @@ function App() {
       <NutritionTable
         showVitaminsAndMinerals={showVitaminsAndMinerals}
       />
-    </div>
+    </>
   );
 }
 

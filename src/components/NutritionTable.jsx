@@ -148,22 +148,18 @@ function NutritionTable({ showVitaminsAndMinerals }) {
     });
 
     return (
-        <div className="App">
-            <header className="App-header">
-                <Table
-                    cellData={cellData}
-                    cellKeys={cellKeys}
-                    headers={
-                        showVitaminsAndMinerals
-                            ? headers
-                            : headers.slice(0, -2)
-                    }
-                    selectedRowIndices={selectedRowIndices}
-                    selectRow={selectRowCb}
-                    sortColumnBy={sortNutritionList}
-                />
-            </header>
-        </div>
+        <Table
+            cellData={cellData}
+            cellKeys={cellKeys}
+            headers={
+                showVitaminsAndMinerals
+                    ? headers
+                    : headers.slice(0, -2)
+            }
+            selectedRowIndices={selectedRowIndices}
+            selectRow={selectRowCb}
+            sortColumnBy={sortNutritionList}
+        />
     );
 }
 
