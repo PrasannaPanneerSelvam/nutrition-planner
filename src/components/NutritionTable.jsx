@@ -64,7 +64,7 @@ const allowedSortByFns = (keyName) => {
 
 function NutritionTable({ showVitaminsAndMinerals }) {
 
-    const { nutritionList, setNutritionList } = useContext(NutritionContext)
+    const { nutritionList, setNutritionList, setRatioInCache } = useContext(NutritionContext)
 
     const [sortKey, setSortKey] = useState('itemName');
 
@@ -113,7 +113,7 @@ function NutritionTable({ showVitaminsAndMinerals }) {
         const resultCells = [
             item['itemName'],
             <Editable
-                initialValue={item['quantity'].value}
+                initialValue={multiplyFloatValues(item['quantity'].value, ratio)}
                 unit={item['quantity'].unit}
                 onValueChange={(newValue) => {
                     const newNutritionList = cloneJson(nutritionList),
@@ -122,6 +122,7 @@ function NutritionTable({ showVitaminsAndMinerals }) {
                     if (currentItem) {
                         currentItem.uiData.ratio = newValue / item['quantity'].value;
                         sortAndSetNutritionList(newNutritionList);
+                        setRatioInCache(item['itemName'], currentItem.uiData.ratio);
                     }
                 }} />,
             multiplyFloatValues(item['energy_kcal'], ratio),
