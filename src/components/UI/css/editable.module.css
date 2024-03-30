@@ -1,23 +1,82 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(8, 5, 27, 0.8);
+  z-index: var(--popup-overlay-level);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.popupWrapper {
+  background: #08051b;
+  min-width: 50vw;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(84, 91, 94);
+}
+
+.popupWrapper > div {
+  padding: 20px;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.popupWrapper input {
+  min-width: 7ch;
+  text-align: right;
+  background-color: #352886;
+  border: none;
+  color: #eee;
+  padding: 3px 5px;
+  border-radius: 3px;
+}
+
+.popupWrapper input:focus {
+  outline: none;
+}
+
 .container {
   display: flex;
 }
 
-.hide {
-  display: none;
+.previewWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.container input {
-  width: 7ch;
-  text-align: right;
+.edit {
+  height: 20px;
+  width: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.square {
+.buttonWrapper {
+  display: flex;
+  gap: 7px;
+}
+
+.button {
+  flex: 1;
   display: inline-block;
-  height: 15px;
-  width: 15px;
-  border: 1px solid #000;
+  border: none;
+  padding: 5px;
+  background-color: #4caf50;
+  color: #fff;
+  border-radius: 2.5px;
 }
 
 .close {
-  border: 1px solid #f00;
+  background-color: #ff5252;
 }

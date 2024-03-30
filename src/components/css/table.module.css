@@ -6,14 +6,14 @@
 .table th,
 .table td {
   max-width: min-content;
-  border: 1px solid #ddd;
+  border: 1px solid rgb(84, 91, 94);
   padding: 8px;
   text-align: left;
   cursor: default;
 }
 
 .table th {
-  background-color: #f2f2f2;
+  background-color: rgb(61, 140, 64);
   font-weight: bold;
   cursor: pointer;
 }

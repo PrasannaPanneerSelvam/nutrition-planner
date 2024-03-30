@@ -48,6 +48,7 @@ function App() {
       <NutritionTable
         showVitaminsAndMinerals={showVitaminsAndMinerals}
       />
+      <div id="PopupHolder"></div>
     </>
   );
 }
