@@ -4,7 +4,7 @@ import Editable from './UI/Editable';
 import { NutritionContext } from '../context/Nutrition';
 import { multiplyFloatValues } from '../FloatUtils';
 
-const cloneJson = (i) => JSON.parse(JSON.stringify(i));
+const cloneJsonArray = (i) => [...i];
 
 const mineralNameMap = {
     'Ca': 'Calcium',
@@ -64,7 +64,7 @@ const allowedSortByFns = (keyName) => {
 
 function NutritionTable({ showVitaminsAndMinerals }) {
 
-    const { nutritionList, setNutritionList, setRatioInCache } = useContext(NutritionContext)
+    const { nutritionList, setNutritionList, setRatioInCache, setSelectedInCache } = useContext(NutritionContext)
 
     const [sortKey, setSortKey] = useState('itemName');
 
@@ -75,7 +75,7 @@ function NutritionTable({ showVitaminsAndMinerals }) {
 
     const sortNutritionList = useCallback((key) => {
 
-        const newNutritionList = cloneJson(nutritionList);
+        const newNutritionList = cloneJsonArray(nutritionList);
 
         if (key === sortKey) {
             newNutritionList.reverse();
@@ -88,10 +88,11 @@ function NutritionTable({ showVitaminsAndMinerals }) {
     }, [nutritionList, setNutritionList, sortKey]);
 
     const selectRowCb = useCallback((selectedRowIndex) => {
-        const newNutritionList = cloneJson(nutritionList);
+        const newNutritionList = cloneJsonArray(nutritionList);
 
         if (newNutritionList[selectedRowIndex]) {
             newNutritionList[selectedRowIndex].uiData.isSelected = !newNutritionList[selectedRowIndex].uiData.isSelected;
+            setSelectedInCache(newNutritionList[selectedRowIndex].itemName, newNutritionList[selectedRowIndex].uiData.isSelected);
             setNutritionList(newNutritionList);
         }
     }, [nutritionList, setNutritionList]);
@@ -116,7 +117,7 @@ function NutritionTable({ showVitaminsAndMinerals }) {
                 initialValue={multiplyFloatValues(item['quantity'].value, ratio)}
                 unit={item['quantity'].unit}
                 onValueChange={(newValue) => {
-                    const newNutritionList = cloneJson(nutritionList),
+                    const newNutritionList = cloneJsonArray(nutritionList),
                         currentItem = newNutritionList.find(i => item['itemName'] === i['itemName']);
 
                     if (currentItem) {
