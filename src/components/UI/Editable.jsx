@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './css/editable.module.css'
 import ReactDOM from 'react-dom';
 
@@ -6,8 +6,11 @@ function InputPopup({ initialValue, closePopupCb, unit }) {
     const [inputValue, setInputValue] = useState(initialValue);
     const inputRef = useRef();
 
+    useEffect(() => {
+        inputRef.current.focus();
+    }, []);
+
     const handleFocus = (event) => {
-        console.log("T")
         const target = event.currentTarget;
         target.type = 'text';
         target.setSelectionRange(0, target.value.length);

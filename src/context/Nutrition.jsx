@@ -1,18 +1,25 @@
 import { createContext, useState } from "react";
 import NutritionList from "../constants/nutritionData";
+import { debounce } from "./../Utils"
 
 const NutritionContext = createContext();
 
-const NutritionContextProvider = ({ children }) => {
+const localStorageProxy = window.localStorage ?? { setItem: () => { }, getItem: () => { } };
 
-  const nutritionRatioCache = JSON.parse(localStorage.getItem('ratioCache') ?? '{}');
+const nutritionRatioCache = JSON.parse(localStorageProxy.getItem('ratioCache') ?? '{}');
+const selectedItemsCache = JSON.parse(localStorageProxy.getItem('selectedCache') ?? '{}');
+
+const setNutritionRatioCache = debounce((json) => localStorageProxy.setItem('ratioCache', JSON.stringify(json)));
+const setSelectedItemsCache = debounce((json) => localStorageProxy.setItem('selectedCache', JSON.stringify(json)));
+
+const NutritionContextProvider = ({ children }) => {
 
   const [nutritionList, setNutritionList] = useState(() => {
     const result = NutritionList.map((i) => ({
       ...i,
       uiData: {
         ratio: nutritionRatioCache[i['itemName']] ?? 1,
-        isSelected: false,
+        isSelected: selectedItemsCache[i['itemName']] ?? false,
       },
     }));
 
@@ -28,11 +35,16 @@ const NutritionContextProvider = ({ children }) => {
 
   const setRatioInCache = (key, ratio) => {
     nutritionRatioCache[key] = ratio;
-    localStorage.setItem('ratioCache', JSON.stringify(nutritionRatioCache));
+    setNutritionRatioCache(nutritionRatioCache);
+  };
+
+  const setSelectedInCache = (key, isSelected) => {
+    selectedItemsCache[key] = isSelected;
+    setSelectedItemsCache(selectedItemsCache);
   };
 
   return (
-    <NutritionContext.Provider value={{ nutritionList, setNutritionList, setRatioInCache }}>
+    <NutritionContext.Provider value={{ nutritionList, setNutritionList, setRatioInCache, setSelectedInCache }}>
       {children}
     </NutritionContext.Provider>
   );
