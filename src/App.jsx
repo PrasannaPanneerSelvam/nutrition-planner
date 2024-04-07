@@ -3,7 +3,7 @@ import NutritionTable from './components/NutritionTable';
 import { NutritionContext } from './context/Nutrition';
 import Table from './components/Table';
 import { addFloatValues, multiplyFloatValues } from './FloatUtils';
-
+import styles from './app.module.css'
 
 function App() {
 
@@ -22,7 +22,7 @@ function App() {
 
 
   return (
-    <>
+    <div className={styles.totalWrapper}>
       <Table
         cellData={[
           ['Energy (kcal)', computeTotalByKey('energy_kcal')],
@@ -39,17 +39,18 @@ function App() {
         sortColumnBy={() => { }}
       />
 
-      <div onClick={() => {
+      <div className={styles.checkBoxWrapper} onClick={() => {
         setShowVitaminsAndMinerals(prev => !prev);
       }}>
-        <div></div>
+        <input type="checkbox" onChange={() => {
+        }} checked={showVitaminsAndMinerals} />
         <span>Show Vitamins & mineral details</span>
       </div>
       <NutritionTable
         showVitaminsAndMinerals={showVitaminsAndMinerals}
       />
       <div id="PopupHolder"></div>
-    </>
+    </div>
   );
 }
 
